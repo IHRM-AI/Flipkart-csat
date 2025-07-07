@@ -37,6 +37,16 @@ Charts include:
 Class distribution of predicted CSAT scores
 Confidence distribution for each prediction
 These are stored in the charts/ folder.
+---
+
+## 📊 Chart Previews
+
+Predicted CSAT Score Distribution
+![CSAT Distribution](charts/predicted_csat_distribution.png)
+
+ Prediction Confidence Distribution
+![Confidence Distribution](charts/prediction_confidence_distribution.png)
+
 
 📦 Dependencies
 Python 3.11
