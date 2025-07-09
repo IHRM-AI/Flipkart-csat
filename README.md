@@ -89,6 +89,7 @@ Flipkart-csat/
 
 ## 🔗 Live Resources
 
+* 🌐 Live Dashboard : https://flipkart-csat-ishan.streamlit.app/
 * 🔍 [Prediction Results (CSV)](https://github.com/IHRM-AI/Flipkart-csat/blob/main/flipkart_csat_predictions.csv)
 * 📊 Report: `Flipkart_CSAT_Report.pdf`
 
