@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import os
@@ -8,8 +7,19 @@ st.set_page_config(page_title="Flipkart CSAT Dashboard", layout="wide")
 st.title("📊 Flipkart Customer Service Satisfaction Dashboard")
 st.markdown("This dashboard visualizes the performance of the CSAT prediction model built on GCP Vertex AI.")
 
-# Load prediction CSV
+# Load CSV
 df = pd.read_csv("flipkart_csat_predictions.csv")
+
+# 🔧 Ensure predicted_csat column exists
+if 'predicted_csat' not in df.columns:
+    score_cols = [
+        'csat_score_5_scores', 'csat_score_4_scores',
+        'csat_score_3_scores', 'csat_score_2_scores',
+        'csat_score_1_scores'
+    ]
+    max_score_col = df[score_cols].astype(float).idxmax(axis=1)
+    df['predicted_csat'] = max_score_col.str.extract(r'csat_score_(\d+)_scores')
+    df['predicted_csat'] = pd.to_numeric(df['predicted_csat'], errors='coerce').fillna(-1).astype(int)
 
 # --- Summary Stats ---
 st.subheader("🔍 Summary Metrics")
@@ -32,7 +42,11 @@ chart_files = [
 ]
 
 for chart in chart_files:
-    st.image(os.path.join(chart_folder, chart), use_column_width=True, caption=chart.replace("_", " ").title())
+    chart_path = os.path.join(chart_folder, chart)
+    if os.path.exists(chart_path):
+        st.image(chart_path, use_column_width=True, caption=chart.replace("_", " ").title())
+    else:
+        st.warning(f"⚠️ Chart not found: {chart_path}")
 
 # --- Download Section ---
 st.subheader("📥 Download Predictions")
